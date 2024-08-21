@@ -52,12 +52,22 @@ function App() {
   const renderTracks = () => {
     return searchedTracks.map(track => (
       <div key={track.id}>
-        {/* Exiba as informações da faixa, por exemplo: */}
-        <div>{track.name}</div>
-        <div>{track.artists.map(artist => artist.name).join(', ')}</div>
+        {/* Verifica se track.images existe e se tem algum item */}
+        {track.album && track.album.images && track.album.images.length > 0 ? (
+          <img width={"100%"} src={track.album.images[0].url} alt="Track artwork" />
+        ) : (
+          <div>No Image</div>
+        )}
+        <p>{track.name}</p>
+        {/* Verifica se track.artists existe e se tem algum item */}
+        {track.artists && track.artists.length > 0 ? (
+          <p>{track.artists.map(artist => artist.name).join(', ')}</p>
+        ) : (
+          <p>No Artists</p>
+        )}
       </div>
     ));
-  };
+  };  
 
   return (
     <div className="App">
